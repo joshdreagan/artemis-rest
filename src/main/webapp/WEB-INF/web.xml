@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+  <display-name>Artemis REST</display-name>
+
+  <context-param>
+    <param-name>rest.messaging.config.file</param-name>
+    <param-value>rest-config.xml</param-value>
+  </context-param>
+
+  <listener>
+    <listener-class>org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap</listener-class>
+  </listener>
+
+  <listener>
+    <listener-class>org.apache.activemq.artemis.rest.integration.RestMessagingBootstrapListener</listener-class>
+  </listener>
+
+  <filter>
+    <filter-name>Rest-Messaging</filter-name>
+    <filter-class>org.jboss.resteasy.plugins.server.servlet.FilterDispatcher</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>Rest-Messaging</filter-name>
+    <url-pattern>/*</url-pattern>
+  </filter-mapping>
+
+</web-app>
